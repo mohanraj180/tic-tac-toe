@@ -7,6 +7,11 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="./styles.css">
     <script src="./script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -14,13 +19,43 @@
         <p>TIC TAC TOE</p>
     </div>
     <div class="content">
+        <div class="symbol-selector">
+            <p>CHOOSE YOUR SYMBOL</p>
+            <div class="symbol-buttons">
+                <button class="symbols">X</button>
+                <button class="symbols">O</button>
+            </div>
+        </div>
+
         <div class="game-board">
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
-            <div class="field"></div>
+            <div class="field">
+                <p data-index="0"></p>
+            </div>
+            <div class="field">
+                <p data-index="1"></p>
+            </div>
+            <div class="field">
+                <p data-index="2"></p>
+            </div>
+            <div class="field">
+                <p data-index="3"></p>
+            </div>
+            <div class="field">
+                <p data-index="4"></p>
+            </div>
+            <div class="field">
+                <p data-index="5"></p>
+            </div>
+            <div class="field">
+                <p data-index="6"></p>
+            </div>
+            <div class="field">
+                <p data-index="7"></p>
+            </div>
+            <div class="field">
+                <p data-index="8"></p>
+            </div>
+
         </div>
     </div>
 </body>
