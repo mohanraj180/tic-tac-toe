@@ -4,6 +4,7 @@
 }
 
 body {
+    font-family: 'Roboto', sans-serif;
     min-width: 100%;
     min-height: 100vh;
     display: grid;
@@ -15,6 +16,10 @@ body {
     background-color: lightcoral;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
+    display: grid;
+    place-items: center;
+    font-size: 40px;
+    font-weight: 600;
 }
 
 .content {
@@ -23,6 +28,33 @@ body {
     grid-row: 2 / 3;
     display: grid;
     place-items: center;
+}
+
+.symbol-selector {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.symbol-selector > p {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.symbol-buttons {
+    display: flex;
+    justify-items: stretch;
+    gap: 20px;
+}
+
+.symbols {
+    background-color: lightblue;
+    border: none;
+    font-size: 24px;
+    padding: 10px 50px 10px 50px;
+    border-radius: 10px;
 }
 
 .game-board {
