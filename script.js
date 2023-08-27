@@ -1,8 +1,8 @@
 const gameBoard = (() => {
-    const fieldArray = [];
+    const fieldArray = new Array(9);
     const currentPlayer = {};
 
-    return {fieldArray, currentPlayer};
+    return { fieldArray, currentPlayer };
 })();
 
 const Player = (name, symbol) => {
@@ -17,9 +17,10 @@ const player_2 = Player()
 
 const symbolList = document.querySelectorAll('.symbols');
 symbolList.forEach(symbolEle => {
-    
+
     symbolEle.addEventListener('click', (event) => {
         console.log('symbol choosen')
+        console.log(gameBoard.fieldArray.length);
         if (event.textContent === 'O') {
             player_1.symbol = 'X';
             player_2.symbol = 'O';
@@ -38,12 +39,18 @@ fieldList.forEach(field => {
     field.addEventListener('click', (event) => {
         console.log('field clicked');
         console.log(event.target);
-        if (event.target.textContent === '' && gameBoard.currentPlayer === player_1) {
-            event.target.textContent = player_1.symbol;
+        console.log(field);
+        if (field.textContent === '' && gameBoard.currentPlayer === player_1) {
+            field.textContent = player_1.symbol;
+            const fieldIndex = field.getAttribute('data-index');
+            gameBoard.fieldArray[parseInt(fieldIndex)] = player_1.symbol;
             gameBoard.currentPlayer = player_2;
-        } else if(event.target.textContent === '' && gameBoard.currentPlayer === player_2){
-            event.target.textContent = player_2.symbol;
+        } else if (field.textContent === '' && gameBoard.currentPlayer === player_2) {
+            field.textContent = player_2.symbol;
+            const fieldIndex = field.getAttribute('data-index');
+            gameBoard.fieldArray[parseInt(fieldIndex)] = player_2.symbol;
             gameBoard.currentPlayer = player_1;
         }
+        console.log(gameBoard.fieldArray);
     })
 });
