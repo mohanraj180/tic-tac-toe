@@ -49,7 +49,7 @@ const gameBoard = (() => {
             || (fieldArray[2] === 'O' && fieldArray[4] === 'O' && fieldArray[6] === 'O')) {
             console.log('player - 2 won');
         } else {
-            console.log('nothing checks out')
+            console.log("IT'S A TIE");
         }
     }
 
