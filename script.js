@@ -16,7 +16,7 @@ const gameBoard = (() => {
             fieldEle.textContent = gameBoard.fieldArray[parseInt(fieldIndex)];
             gameBoard.currentPlayer = player_1;
         }
-        
+
     }
 
     const checkWinCondition = () => {
@@ -40,10 +40,47 @@ const gameBoard = (() => {
             || (fieldArray[2] === 'O' && fieldArray[4] === 'O' && fieldArray[6] === 'O')) {
             console.log('player - 2 won');
             return 'player-2 won';
-        } else if(!fieldArray.includes(undefined)) {
+        } else if (!fieldArray.includes(undefined)) {
             console.log("IT'S A TIE");
             return 'game tied';
         }
+    }
+
+    const displayResultMessage = (result) => {
+        const resultMessage = document.getElementById('message');
+        const messageOverlay = document.getElementById('overlay');
+        switch (result) {
+            case 'player-1 won':
+                resultMessage.textContent = player_1.name + " " + 'won';
+                messageOverlay.style.display = 'block';
+                resultMessage.style.display = 'block';
+                break;
+
+            case 'player-2 won':
+                resultMessage.textContent = player_2.name + " " + 'won';
+                messageOverlay.style.display = 'block';
+                resultMessage.style.display = 'block';
+                break;
+
+            case 'game tied':
+                resultMessage.textContent = 'Game Tied';
+                messageOverlay.style.display = 'block';
+                resultMessage.style.display = 'block';
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    const closeResultMessage = () => {
+        const resultMessage = document.getElementById('message');
+        const messageOverlay = document.getElementById('overlay');
+
+        messageOverlay.style.display = 'none';
+        resultMessage.style.display = 'none';
+
+        gameBoard.reset();
     }
 
     const reset = () => {
@@ -51,15 +88,15 @@ const gameBoard = (() => {
         fieldEleList.forEach(fieldEle => {
             const fieldEleIndex = fieldEle.getAttribute('data-index');
             fieldEle.textContent = undefined;
-        }) 
+        })
     }
 
-    return { fieldArray, updateFieldAndPlayer, checkWinCondition, reset };
+    return { fieldArray, updateFieldAndPlayer, checkWinCondition, displayResultMessage, closeResultMessage, reset };
 })();
 
 const Player = (name, symbol) => {
-    
-    return { name, symbol};
+
+    return { name, symbol };
 };
 
 const player_1 = Player();
@@ -85,7 +122,11 @@ fieldList.forEach(field => {
     field.addEventListener('click', (event) => {
         gameBoard.updateFieldAndPlayer(event);
         const result = gameBoard.checkWinCondition();
-        
-        
+
+        gameBoard.displayResultMessage(result);
+
     })
 });
+
+const overlay = document.querySelector('.overlay');
+overlay.addEventListener('click', gameBoard.closeResultMessage);
