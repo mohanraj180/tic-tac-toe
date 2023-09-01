@@ -2,31 +2,21 @@ const gameBoard = (() => {
     const fieldArray = new Array(9);
     const currentPlayer = {};
 
-    const togglePlayerSymbolAndCurrentPlayer = (event) => {
-        if (event.textContent === 'O') {
-            player_1.symbol = 'X';
-            player_2.symbol = 'O';
-            gameBoard.currentPlayer = player_1;
-        } else {
-            player_2.symbol = 'X';
-            player_1.symbol = 'O';
-            gameBoard.currentPlayer = player_2;
-        }
-    }
-
     const updateFieldAndPlayer = (event) => {
         const fieldEle = event.target;
         if (fieldEle.textContent === '' && gameBoard.currentPlayer === player_1) {
-            fieldEle.textContent = player_1.symbol;
             const fieldIndex = fieldEle.getAttribute('data-index');
             gameBoard.fieldArray[parseInt(fieldIndex)] = player_1.symbol;
+            fieldEle.textContent = gameBoard.fieldArray[parseInt(fieldIndex)];
             gameBoard.currentPlayer = player_2;
         } else if (fieldEle.textContent === '' && gameBoard.currentPlayer === player_2) {
-            fieldEle.textContent = player_2.symbol;
+            // fieldEle.textContent = player_2.symbol;
             const fieldIndex = fieldEle.getAttribute('data-index');
             gameBoard.fieldArray[parseInt(fieldIndex)] = player_2.symbol;
+            fieldEle.textContent = gameBoard.fieldArray[parseInt(fieldIndex)];
             gameBoard.currentPlayer = player_1;
         }
+        
     }
 
     const checkWinCondition = () => {
@@ -39,6 +29,7 @@ const gameBoard = (() => {
             || (fieldArray[0] === 'X' && fieldArray[4] === 'X' && fieldArray[8] === 'X')
             || (fieldArray[2] === 'X' && fieldArray[4] === 'X' && fieldArray[6] === 'X')) {
             console.log('player - 1 won');
+            return 'player-1 won';
         } else if ((fieldArray[0] === 'O' && fieldArray[1] === 'O' && fieldArray[2] === 'O')
             || (fieldArray[3] === 'O' && fieldArray[4] === 'O' && fieldArray[5] === 'O')
             || (fieldArray[6] === 'O' && fieldArray[7] === 'O' && fieldArray[8] === 'O')
@@ -48,37 +39,53 @@ const gameBoard = (() => {
             || (fieldArray[0] === 'O' && fieldArray[4] === 'O' && fieldArray[8] === 'O')
             || (fieldArray[2] === 'O' && fieldArray[4] === 'O' && fieldArray[6] === 'O')) {
             console.log('player - 2 won');
-        } else {
+            return 'player-2 won';
+        } else if(!fieldArray.includes(undefined)) {
             console.log("IT'S A TIE");
+            return 'game tied';
         }
     }
 
-    return { fieldArray, togglePlayerSymbolAndCurrentPlayer, updateFieldAndPlayer, checkWinCondition };
+    const reset = () => {
+        const fieldEleList = document.querySelectorAll('.field');
+        fieldEleList.forEach(fieldEle => {
+            const fieldEleIndex = fieldEle.getAttribute('data-index');
+            fieldEle.textContent = undefined;
+        }) 
+    }
+
+    return { fieldArray, updateFieldAndPlayer, checkWinCondition, reset };
 })();
 
 const Player = (name, symbol) => {
-
-    return { name, symbol };
+    
+    return { name, symbol};
 };
 
-const player_1 = Player()
-const player_2 = Player()
+const player_1 = Player();
+player_1.symbol = "X";
+const player_2 = Player();
+player_2.symbol = "O";
 
-// player_1.name = prompt('Player 1 Enter Your Name');
-// player_2.name = prompt('Player 2 Enter Your Name');
+const startBut = document.querySelector('.start');
+startBut.addEventListener('click', () => {
+    player_1.name = prompt('Enter player 1 name');
+    player_2.name = prompt('Enter player 2 name');
 
-const symbolList = document.querySelectorAll('.symbols');
-symbolList.forEach(symbolEle => {
+    const player_1_name = document.getElementById('player-1');
+    player_1_name.textContent = player_1.name;
+    const player_2_name = document.getElementById('player-2');
+    player_2_name.textContent = player_2.name;
+    gameBoard.currentPlayer = player_1;
+})
 
-    symbolEle.addEventListener('click', (event) => {
-        gameBoard.togglePlayerSymbolAndCurrentPlayer(event);
-    })
-});
 
 const fieldList = document.querySelectorAll('.field');
 fieldList.forEach(field => {
     field.addEventListener('click', (event) => {
         gameBoard.updateFieldAndPlayer(event);
-        gameBoard.checkWinCondition();
+        const result = gameBoard.checkWinCondition();
+        
+        
     })
 });
