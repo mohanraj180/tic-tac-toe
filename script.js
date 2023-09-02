@@ -2,6 +2,17 @@ const gameBoard = (() => {
     const fieldArray = new Array(9);
     const currentPlayer = {};
 
+    const setPlayerNamesAndCurrentPlayer = () => {
+        player_1.name = prompt('Enter player 1 name');
+        player_2.name = prompt('Enter player 2 name');
+
+        const player_1_name = document.getElementById('player-1');
+        player_1_name.textContent = (player_1.name + ':').toUpperCase();
+        const player_2_name = document.getElementById('player-2');
+        player_2_name.textContent = (player_2.name + ':').toUpperCase();
+        gameBoard.currentPlayer = player_1;
+    }
+
     const updateFieldAndPlayer = (event) => {
         const fieldEle = event.target;
         if (fieldEle.textContent === '' && gameBoard.currentPlayer === player_1) {
@@ -81,7 +92,7 @@ const gameBoard = (() => {
     }
 
     const reset = () => {
-        for(let i = 0; i < gameBoard.fieldArray.length; i++){
+        for (let i = 0; i < gameBoard.fieldArray.length; i++) {
             gameBoard.fieldArray[i] = undefined;
         }
         const fieldEleList = document.querySelectorAll('.field');
@@ -92,7 +103,7 @@ const gameBoard = (() => {
         gameBoard.currentPlayer = player_1;
     }
 
-    return { fieldArray, updateFieldAndPlayer, checkWinCondition, displayResultMessage, closeResultMessage, reset };
+    return { fieldArray, setPlayerNamesAndCurrentPlayer, updateFieldAndPlayer, checkWinCondition, displayResultMessage, closeResultMessage, reset };
 })();
 
 const Player = (name, symbol) => {
@@ -105,26 +116,15 @@ const player_2 = Player();
 player_2.symbol = "O";
 
 const startBut = document.querySelector('.start');
-startBut.addEventListener('click', () => {
-    player_1.name = prompt('Enter player 1 name');
-    player_2.name = prompt('Enter player 2 name');
-
-    const player_1_name = document.getElementById('player-1');
-    player_1_name.textContent = player_1.name;
-    const player_2_name = document.getElementById('player-2');
-    player_2_name.textContent = player_2.name;
-    gameBoard.currentPlayer = player_1;
-})
+startBut.addEventListener('click', gameBoard.setPlayerNamesAndCurrentPlayer)
 
 
 const fieldList = document.querySelectorAll('.field');
 fieldList.forEach(field => {
     field.addEventListener('click', (event) => {
         gameBoard.updateFieldAndPlayer(event);
-        console.log(gameBoard.fieldArray);
         const result = gameBoard.checkWinCondition();
         gameBoard.displayResultMessage(result);
-
     })
 });
 
