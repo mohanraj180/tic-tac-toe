@@ -16,7 +16,6 @@ const gameBoard = (() => {
             fieldEle.textContent = gameBoard.fieldArray[parseInt(fieldIndex)];
             gameBoard.currentPlayer = player_1;
         }
-
     }
 
     const checkWinCondition = () => {
@@ -76,26 +75,27 @@ const gameBoard = (() => {
     const closeResultMessage = () => {
         const resultMessage = document.getElementById('message');
         const messageOverlay = document.getElementById('overlay');
-
         messageOverlay.style.display = 'none';
         resultMessage.style.display = 'none';
-
         gameBoard.reset();
     }
 
     const reset = () => {
+        for(let i = 0; i < gameBoard.fieldArray.length; i++){
+            gameBoard.fieldArray[i] = undefined;
+        }
         const fieldEleList = document.querySelectorAll('.field');
         fieldEleList.forEach(fieldEle => {
             const fieldEleIndex = fieldEle.getAttribute('data-index');
-            fieldEle.textContent = undefined;
+            fieldEle.textContent = fieldArray[parseInt(fieldEleIndex)];
         })
+        gameBoard.currentPlayer = player_1;
     }
 
     return { fieldArray, updateFieldAndPlayer, checkWinCondition, displayResultMessage, closeResultMessage, reset };
 })();
 
 const Player = (name, symbol) => {
-
     return { name, symbol };
 };
 
@@ -121,8 +121,8 @@ const fieldList = document.querySelectorAll('.field');
 fieldList.forEach(field => {
     field.addEventListener('click', (event) => {
         gameBoard.updateFieldAndPlayer(event);
+        console.log(gameBoard.fieldArray);
         const result = gameBoard.checkWinCondition();
-
         gameBoard.displayResultMessage(result);
 
     })
