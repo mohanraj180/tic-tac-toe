@@ -29,19 +29,54 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 0.15fr 0.85fr;
+    row-gap: 50px;
     place-items: center;
 }
 
-.start {
+.buttons-wrapper {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
     align-self: end;
-    background-color: rgb(46, 235, 46);
+    display: flex;
+    gap: 40px;
+}
+
+.start {
+    background-color: #17be17;
     color: white;
     font-size: 24px;
     font-weight: 600;
     padding: 8px 16px 8px 16px;
     border-radius: 8px;
+    border: 1px solid #226644;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 30px;
+}
+
+.start:hover {
+    background-color: #286d13   ;
+    color: white;
+}
+
+.reset {
+    background-color: rgb(46, 235, 219);
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 8px 16px 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #226644;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 30px;
+}
+
+.reset:hover {
+    background-color: #225566   ;
+    color: white;
 }
 
 .player {
@@ -54,21 +89,27 @@ body {
     border: 5px;
 }
 
-#player-1-wrapper  {
+#player-1-wrapper {
     grid-column: 1 / 2;
     grid-row: 2 / -1;
+    align-self: start;
 }
 
 #player-2-wrapper {
     grid-column: 3 / -1;
     grid-row: 2 / -1;
+    align-self: start;
+}
+
+#player-1, #player-2 {
+   white-space: nowrap;
 }
 
 
 .game-board {
     grid-column: 2 / 3;
     grid-row: 2 / -1;
-    background-color: orange;
+    align-self: start;
     width: 300px;
     height: 300px;
     display: grid;
@@ -76,7 +117,7 @@ body {
     grid-template-rows: repeat(3, 1fr);
 }
 
-.field-wrapper{
+.field-wrapper {
     background-color: lightblue;
     border: 1px solid palevioletred;
 }
@@ -97,7 +138,7 @@ body {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
-    display: none; 
+    display: none;
 }
 
 .message {
@@ -109,6 +150,7 @@ body {
     color: white;
     font-size: 48px;
     z-index: 2;
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     animation: bounceIn 0.5s ease-out;
 }

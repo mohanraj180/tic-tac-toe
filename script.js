@@ -118,6 +118,8 @@ player_2.symbol = "O";
 const startBut = document.querySelector('.start');
 startBut.addEventListener('click', gameBoard.setPlayerNamesAndCurrentPlayer)
 
+const resetBut = document.querySelector('.reset');
+resetBut.addEventListener('click', gameBoard.reset);
 
 const fieldList = document.querySelectorAll('.field');
 fieldList.forEach(field => {
